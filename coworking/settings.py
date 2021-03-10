@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'admin_side',
     'client_side',
+    'admin_side.apps.AdminSideConfig',
+    'client_side.apps.ClientSideConfig'
 ]
 
 MIDDLEWARE = [

@@ -1,19 +1,6 @@
 from django.contrib import admin
-# from .models import Tenants
-
-# Register your models here.
-
-# class TenantsAdmin (admin.ModelAdmin):
-#     list_display = ('id', 'tenant_type', 'phone', 'email')
-#     list_display_links = ('id', 'tenant_type')
-#     search_fields = ('id', 'tenant_type', 'phone', 'email')
-#     list_filter = ('tenant_type')
-
-# admin.site.register(Tenants, TenantsAdmin)
-
 from .models import Tenants, Individuals, Entits, Individual_entrepreneurs, Discount_cards, Deals
 
-# from import_export.admin import ImportExportActionModelAdmin
 
 class TenantsAdmin(admin.ModelAdmin):
     list_display = ('id', 'tenant_type', 'phone', 'email')
@@ -30,25 +17,27 @@ class EntitsAdmin(admin.ModelAdmin):
     list_filter = ('id', 'tenant')
     search_fields = ('id', 'tenant', 'company_name')
 
-# class CarAdmin(ImportExportActionModelAdmin):
-#     list_display = ('id', 'brand', 'model_name', 'model_details', 'number', 'color')
-#     list_filter = ('brand', 'model_name', 'color')
-#     search_fields = ('id', 'model_details', 'number')
+class IndividualEntrepreneursAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tenant', 'surname', 'name', 'patronymic', 'address', 'inn', 'ogrnip')
+    list_filter = ('id', 'tenant')
+    search_fields = ('id', 'tenant', 'surname')
 
-# class StreetAdmin(ImportExportActionModelAdmin):
-#     list_display = ('id', 'street', 'area')
-#     list_filter = ('area',)
-#     search_fields = ('id', 'street')
+class DiscountCardsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tenant', 'discount')
+    list_filter = ('id', 'tenant', 'discount')
+    search_fields = ('id', 'tenant', 'discount')
 
-# class AvailableCarAdmin(ImportExportActionModelAdmin):
-#     list_display = ('id', 'car_id', 'driver', 'street')
-#     list_filter = ('street',)
-#     search_fields = ('id', 'car_id', 'driver')
+class DealsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'tenant', 'rate', 'premise', 'additional_services', 'start_of_lease', 'end_of_lease', 'date_of_signing_the_deal', 'discount', 'total_price')
+    list_filter = ('id', 'tenant')
+    search_fields = ('id', 'tenant')
+
 
 admin.site.register(Tenants, TenantsAdmin)
-# admin.site.register(ModelDetail, ModelDetailAdmin)
-# admin.site.register(Car, CarAdmin)
-# admin.site.register(Street, StreetAdmin)
-# admin.site.register(AvailableCar, AvailableCarAdmin)
+admin.site.register(Individuals, IndividualsAdmin)
+admin.site.register(Entits, EntitsAdmin)
+admin.site.register(Individual_entrepreneurs, IndividualEntrepreneursAdmin)
+admin.site.register(Discount_cards, DiscountCardsAdmin)
+admin.site.register(Deals, DealsAdmin)
 
 
