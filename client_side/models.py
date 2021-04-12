@@ -10,7 +10,7 @@ class Premises(models.Model):
     address = models.TextField()
 
     def __str__(self):
-        return self.premise_type 
+        return str(self.premise_type)
 
 class Premises_types(models.Model):
     # id = models.AutoField()
@@ -27,7 +27,7 @@ class Rates(models.Model):
     price = models.PositiveIntegerField()
 
     def __str__(self):
-        return self.price
+        return str(self.price)
 
 class Additional_services(models.Model):
     # id = models.AutoField()
