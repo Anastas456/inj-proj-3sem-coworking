@@ -78,4 +78,4 @@ class Deals(models.Model):
     status=models.CharField(max_length=100, choices=STATUS_DEALS_CHOICES, default='под')
 
     def __str__(self):
-        return self.tenant 
+        return str(self.tenant) 

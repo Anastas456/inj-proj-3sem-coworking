@@ -78,9 +78,25 @@ WSGI_APPLICATION = 'coworking.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'std_949',
+        'HOST': 'std-mysql',
+        'PORT': '3306',
+        'USER': 'std_949',
+        'PASSWORD': '123456789'
+
+        # 'ENGINE': 'django.db.backends.mysql',
+        # 'NAME': 'coworking',
+        # 'HOST': '127.0.0.1',
+        # 'PORT': '',
+        # 'USER': 'root',
+        # 'PASSWORD': ''
     }
 }
 
