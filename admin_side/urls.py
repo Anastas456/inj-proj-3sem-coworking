@@ -15,6 +15,5 @@ router.register('api/premisestypes', PremisesTypesViewSet, 'premisestypes')
 router.register('api/rates', RatesViewSet, 'rates')
 router.register('api/additionalservices', AdditionalServicesViewSet, 'additionalservices')
 
-path('', views.index, name='index')
 
 urlpatterns = router.urls
