@@ -8,6 +8,14 @@ class PremisesViewSet (viewsets.ModelViewSet):
         permissions.AllowAny
     ]
     serializer_class = PremisesSerializer
+    # coworkings=Premises.objects.filter(premise_type=1)
+
+# class CoworkingListViewSet(viewsets.ModelViewSet):
+#     queryset = Premises.objects.filter(premise_type__exact=1)
+#     permission_classes = [
+#         permissions.AllowAny
+#     ]
+#     serializer_class = PremisesSerializer
 
 class PremisesTypesViewSet (viewsets.ModelViewSet):
     queryset = Premises_types.objects.all()

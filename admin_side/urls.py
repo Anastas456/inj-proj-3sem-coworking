@@ -11,10 +11,11 @@ router.register('api/discountcards', DiscountCardsViewSet, 'discountcards')
 router.register('api/deals', DealsViewSet, 'deals')
 
 router.register('api/premises', PremisesViewSet, 'premises')
+# router.register('api/premises/<int:premise_type>', CoworkingListViewSet, 'premises/')
 router.register('api/premisestypes', PremisesTypesViewSet, 'premisestypes')
 router.register('api/rates', RatesViewSet, 'rates')
 router.register('api/additionalservices', AdditionalServicesViewSet, 'additionalservices')
 
+urlpatterns=[]
 
-
-urlpatterns = router.urls
+urlpatterns += router.urls
