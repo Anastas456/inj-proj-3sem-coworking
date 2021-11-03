@@ -9,14 +9,14 @@ from admin_side.models import Tenants
 from admin_side.serializers import TenantsrSerializer
 
 
-@api_view(['GET', 'POST'])  #список всех арендаторов
+@api_view(['GET', 'POST'])
 def tenant_list(request):
     tenants = Tenants.objects.all()
 
     if request.method == 'GET': 
-        tenant_type = request.GET.get('tenant_type', None)
-        if tenant_type is not None:
-            tenants = tenants.filter(tenant_type__icontains=tenant_type)
+        tenant_name = request.GET.get('tenant_name', None)
+        if tenant_name is not None:
+            tenants = tenants.filter(tenant_name__icontains=tenant_name)
 
         tenants_serializer = TenantsrSerializer(tenants, many=True)
         return JsonResponse(tenants_serializer.data, safe=False)
