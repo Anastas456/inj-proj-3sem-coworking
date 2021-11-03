@@ -1,5 +1,4 @@
 from django.db import models
-from client_side.models import Rates, Premises, Additional_services
 
 # Create your models here.
 
