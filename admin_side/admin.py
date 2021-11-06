@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Tenants, Individuals, Entits, Individual_entrepreneurs, Discount_cards, Deals
 from import_export.admin import ImportExportActionModelAdmin
+from rest_framework.authtoken.admin import TokenAdmin
 
 def make_deals_in_progress(modeladmin, request, queryset):
     queryset.update(status='раб')
@@ -51,3 +52,4 @@ admin.site.register(Discount_cards, DiscountCardsAdmin)
 admin.site.register(Deals, DealsAdmin)
 
 
+TokenAdmin.raw_id_fields = ['user']
