@@ -1,5 +1,7 @@
+# from re import search
 from django.contrib import admin
-from .models import Premises, Premises_types, Rates, Additional_services
+from django.contrib.admin.sites import site
+from .models import Premises, Premises_types, Rates, Additional_services, Rent_form
 from import_export.admin import ImportExportActionModelAdmin
 # Register your models here.
 
@@ -23,7 +25,13 @@ class AdditionalServicesAdmin(ImportExportActionModelAdmin):
     list_filter = ('id', 'name', 'price')
     search_fields = ('id', 'name', 'price')
 
+class RentFormAdmin(ImportExportActionModelAdmin):
+    list_display = ('id', 'client_name', 'email', 'phone', 'description')
+    list_filter = ('id', 'client_name', 'email', 'phone')
+    search_fields = ('id', 'client_name', 'email', 'phone', 'description')
+
 admin.site.register(Premises, PremisesAdmin)
 admin.site.register(Premises_types, PremisesTypesAdmin)
 admin.site.register(Rates, RatesAdmin)
 admin.site.register(Additional_services, AdditionalServicesAdmin)
+admin.site.register(Rent_form, RentFormAdmin)

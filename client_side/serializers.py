@@ -1,5 +1,6 @@
+from django.db.models import fields
 from rest_framework import serializers
-from .models import Premises, Premises_types, Rates, Additional_services
+from .models import Premises, Premises_types, Rates, Additional_services, Rent_form
 
 class PremisesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -19,4 +20,9 @@ class RatesSerializer(serializers.ModelSerializer):
 class AdditionalServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Additional_services
+        fields = '__all__'
+
+class RentFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rent_form
         fields = '__all__'

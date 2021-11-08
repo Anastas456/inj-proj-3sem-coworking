@@ -4,14 +4,16 @@ diff-match-patch==20200713
 Django==3.1.7
 django-cors-headers==3.7.0
 django-crispy-forms==1.13.0
+django-extensions==3.1.5
 django-import-export==2.5.0
 djangorestframework==3.12.2
+djangorestframework-jwt==1.11.0
 et-xmlfile==1.0.1
 MarkupPy==1.14
 mysqlclient==2.0.3
 odfpy==1.4.1
 openpyxl==3.0.7
-PyJWT==2.3.0
+PyJWT==1.7.1
 pytz==2021.1
 PyYAML==5.4.1
 sqlparse==0.4.1

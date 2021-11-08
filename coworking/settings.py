@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/3.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.1/ref/settings/
 """
-
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,9 +42,12 @@ INSTALLED_APPS = [
     'client_side.apps.ClientSideConfig',
     'import_export',
     'corsheaders',
-    'rest_framework.authtoken',
-    'crispy_forms'
+    # 'rest_framework.authtoken',
+    'crispy_forms',
+    'rest_framework_jwt',
+    'users'
 ]
+AUTH_USER_MODEL = 'users.User'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
@@ -88,7 +91,8 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         # 'rest_framework.authentication.BasicAuthentication',
 	    # 'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ]
 }
 
@@ -104,10 +108,10 @@ DATABASES = {
 
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'std_949',
+        'NAME': 'std_949_3_4sem_inj_proj',
         'HOST': 'std-mysql',
         'PORT': '3306',
-        'USER': 'std_949',
+        'USER': 'std_949_3_4sem_inj_proj',
         'PASSWORD': '123456789'
 
         # 'ENGINE': 'django.db.backends.mysql',
@@ -161,3 +165,20 @@ STATIC_URL = '/static/'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 LOGIN_REDIRECT_URL = '/'
+
+JWT_AUTH = {
+    'JWT_VERIFY': True,
+    'JWT_VERIFY_EXPIRATION': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+    'JWT_AUTH_HEADER_PREFIX': 'Bearer',
+    # 'JWT_ENCODE_HANDLER':
+    #     'rest_framework_jwt.utils.jwt_encode_handler',
+
+    # 'JWT_DECODE_HANDLER':
+    #     'rest_framework_jwt.utils.jwt_decode_handler',
+
+    # 'JWT_PAYLOAD_HANDLER':
+    #     'rest_framework_jwt.utils.jwt_payload_handler',
+    
+    # 'JWT_ALLOW_REFRESH': True,
+}

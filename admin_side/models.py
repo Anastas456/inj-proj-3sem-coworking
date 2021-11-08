@@ -1,9 +1,4 @@
-from django.contrib.auth.models import User
 from django.db import models
-from django.conf import settings
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from rest_framework.authtoken.models import Token
 
 STATUS_DEALS_CHOICES = [
     ('под', 'подписан'),
@@ -12,7 +7,6 @@ STATUS_DEALS_CHOICES = [
 ]
 
 class Tenants(models.Model):
-    # id = models.AutoField()
     tenant_name=models.CharField(max_length=255, default='ФИО или название компании')
     tenant_type = models.CharField(max_length=255)             
     phone = models.CharField(max_length=15)                  
@@ -22,7 +16,6 @@ class Tenants(models.Model):
         return str({self.tenant_name, self.tenant_type})           
 
 class Individuals(models.Model):
-    # id = models.AutoField()
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)
     surname = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -34,7 +27,6 @@ class Individuals(models.Model):
         return self.surname
 
 class Entits(models.Model):
-    # id = models.AutoField()
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)
     company_name = models.TextField()
     inn = models.IntegerField(max_length=10)
@@ -45,7 +37,6 @@ class Entits(models.Model):
         return self.company_name 
 
 class Individual_entrepreneurs(models.Model):
-    # id = models.AutoField()
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)
     surname = models.CharField(max_length=255)
     name = models.CharField(max_length=255)
@@ -59,7 +50,6 @@ class Individual_entrepreneurs(models.Model):
 
 
 class Discount_cards(models.Model):
-    # id = models.AutoField()
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)
     discount = models.PositiveIntegerField()
 
@@ -67,7 +57,6 @@ class Discount_cards(models.Model):
         return str(self.discount )
 
 class Deals(models.Model):
-    # id = models.AutoField()
     tenant = models.ForeignKey('Tenants', on_delete=models.CASCADE)
     rate = models.ForeignKey('client_side.Rates', on_delete=models.CASCADE)
     premise = models.ForeignKey('client_side.Premises', on_delete=models.CASCADE)
@@ -81,11 +70,3 @@ class Deals(models.Model):
 
     def __str__(self):
         return str(self.tenant) 
-
-# for user in User.objects.all():
-#     Token.objects.get_or_create(user=user)
-
-# @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-# def create_auth_token(sender, instance=None, created=False, **kwargs):
-#     if created:
-#         Token.objects.create(user=instance)

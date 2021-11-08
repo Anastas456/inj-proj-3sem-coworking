@@ -1,13 +1,18 @@
-from client_side.models import Premises
-from django.shortcuts import render
-from .models import Premises, Premises_types, Rates, Additional_services
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.parsers import JSONParser
+from django.http.response import JsonResponse
+from rest_framework import status
 
+from client_side.serializers import RentFormSerializer 
 
-# Create your views here.
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def form_rent_form(request):
 
-# class GetCoworkingsView():
-# #     model = Premises
-# #     # template_name = 'search_results.html'
- 
-# #     def get_queryset(self): # новый
-#     queryset= Premises.objects.filter(premise_type__exect=1)
+    form_data = JSONParser().parse(request)
+    form_serializer = RentFormSerializer(data=form_data)
+    if form_serializer.is_valid():
+        form_serializer.save()
+        return JsonResponse(form_serializer.data, status=status.HTTP_201_CREATED) 
+    return JsonResponse(form_serializer.errors, status=status.HTTP_400_BAD_REQUEST)

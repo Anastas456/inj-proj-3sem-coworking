@@ -2,9 +2,11 @@ from django.urls.conf import include, path
 from django.conf.urls import url
 from rest_framework import routers
 
+from client_side.views import form_rent_form
+
 from .api import TenantsViewSet, IndividualsViewSet, EntitsViewSet, IndividualEntrepreneursViewSet, DiscountCardsViewSet, DealsViewSet
 from client_side.api import PremisesViewSet, PremisesTypesViewSet, RatesViewSet, AdditionalServicesViewSet
-from admin_side.views import CustomAuthToken, ProfileView, premise_bytype_list, tenant_list, tenant_detail
+from admin_side.views import premise_bytype_list, tenant_list, tenant_detail
 
 
 router = routers.DefaultRouter()
@@ -20,15 +22,13 @@ router.register('api/premisestypes', PremisesTypesViewSet, 'premisestypes')
 router.register('api/rates', RatesViewSet, 'rates')
 router.register('api/additionalservices', AdditionalServicesViewSet, 'additionalservices')
 
-# router.register(r'api/users', UserViewSet)
 
 urlpatterns=[
     path('', include(router.urls)),
-    path('api/auth/', CustomAuthToken.as_view()),
-    path('api/profile/', ProfileView.as_view())
 ]
 urlpatterns+=[
     url(r'^api/tenants$', tenant_list),
     url(r'^api/tenants/(?P<pk>[0-9]+)$', tenant_detail),
     url(r'^api/premises$', premise_bytype_list),
+    url(r'^api/rent-form$', form_rent_form)
 ]

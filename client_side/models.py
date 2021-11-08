@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields import EmailField
 
 # Create your models here.
 
@@ -37,3 +38,12 @@ class Additional_services(models.Model):
 
     def __str__(self):
         return self.name
+
+class Rent_form(models.Model):
+    client_name = models.CharField(max_length=255)
+    email = models.EmailField()
+    phone = models.CharField(max_length=255)  
+    description = models.TextField()
+
+    def __str__(self):
+        return self.client_name
