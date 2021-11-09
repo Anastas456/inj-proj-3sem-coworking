@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'corsheaders',
     # 'rest_framework.authtoken',
     'crispy_forms',
-    'rest_framework_jwt',
+    # 'rest_framework_jwt',
     'users'
 ]
 AUTH_USER_MODEL = 'users.User'
@@ -169,7 +169,7 @@ LOGIN_REDIRECT_URL = '/'
 JWT_AUTH = {
     'JWT_VERIFY': True,
     'JWT_VERIFY_EXPIRATION': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3600),
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     # 'JWT_ENCODE_HANDLER':
     #     'rest_framework_jwt.utils.jwt_encode_handler',

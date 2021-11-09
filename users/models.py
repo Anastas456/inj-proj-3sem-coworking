@@ -5,30 +5,53 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 import coworking.settings as settings
 
 class UserManager(BaseUserManager):
-    
-    def create_user(self, username, email, first_name, last_name, password=None):
-        if username is None:
-            raise TypeError('Users must have a username.')
+    def _create_user(self, email, username, first_name, last_name, password, **extra_fields):
+        if not email:
+            raise ValueError('The given email must be set')
+        try:
+            user = self.model(email=email, username=username, first_name=first_name, last_name=last_name,  **extra_fields)
+            user.set_password(password)
+            user.save(using=self._db)
+            return user
+        except:
+            raise
+ 
+    def create_user(self, email, username, first_name, last_name, password=None, **extra_fields):
+        extra_fields.setdefault('is_staff', False)
+        extra_fields.setdefault('is_superuser', False)
+        extra_fields.setdefault('is_active', True)
+        return self._create_user(email, username, first_name, last_name, password, **extra_fields)
+ 
+    def create_superuser(self, email, username, first_name, last_name, password, **extra_fields):
+        extra_fields.setdefault('is_staff', True)
+        extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
+ 
+        return self._create_user(email, username, first_name, last_name, password=password, **extra_fields)
 
-        if email is None:
-            raise TypeError('Users must have an email address.')
+    # def create_user(self, username, email, first_name, last_name, password=None):
+    #     if username is None:
+    #         raise TypeError('Users must have a username.')
 
-        user = self.model(username=username, email=self.normalize_email(email), first_name=first_name, last_name=last_name)
-        user.set_password(password)
-        user.save()
+    #     if email is None:
+    #         raise TypeError('Users must have an email address.')
 
-        return user
+    #     user = self.model(username=username, email=email, first_name=first_name, last_name=last_name)
+    #     user.set_password(password)
+    #     user.save()
 
-    def create_superuser(self, username, email, first_name, last_name, password):
-        if password is None:
-            raise TypeError('Superusers must have a password.')
+    #     return user
 
-        user = self.create_user(username, email, first_name, last_name, password)
-        user.is_superuser = True
-        user.is_staff = True
-        user.save()
+    # def create_superuser(self, username, email, first_name, last_name, password):
+    #     if password is None:
+    #         raise TypeError('Superusers must have a password.')
 
-        return user
+    #     user = self.create_user(username, email, first_name, last_name, password)
+    #     user.is_superuser = True
+    #     user.is_staff = True
+    #     user.save()
+
+    #     return user
 
 
 class User(AbstractBaseUser, PermissionsMixin):
@@ -41,19 +64,23 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = [ 'username', 'first_name', 'last_name']
 
     objects = UserManager()
 
-    def __str__(self):
-        return self.email
+    # def __str__(self):
+    #     return self.email
+
+    def save(self, *args, **kwargs):
+        super(User, self).save(*args, **kwargs)
+        return self
 
     @property
     def token(self):
         return self._generate_jwt_token()
 
-    def get_full_name(self):
-        return self.first_name + self.last_name
+    # def get_full_name(self):
+    #     return self.first_name + self.last_name
 
     # def get_short_name(self):
     #     return self.username
