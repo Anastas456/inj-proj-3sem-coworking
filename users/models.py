@@ -29,6 +29,9 @@ class UserManager(BaseUserManager):
  
         return self._create_user(email, username, first_name, last_name, password=password, **extra_fields)
 
+    def get_by_natural_key(self, username):
+        return self.get(username=username)
+
     # def create_user(self, username, email, first_name, last_name, password=None):
     #     if username is None:
     #         raise TypeError('Users must have a username.')
@@ -82,8 +85,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # def get_full_name(self):
     #     return self.first_name + self.last_name
 
-    # def get_short_name(self):
-    #     return self.username
+    def get_username(self):
+        return self.username
 
     def _generate_jwt_token(self):
     
@@ -91,7 +94,8 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         token = jwt.encode({
             'id': self.pk,
-            'exp': dt
+            'exp': dt,
+            'username': self.username
         }, settings.SECRET_KEY, algorithm='HS256')
 
         return token.decode('utf-8')

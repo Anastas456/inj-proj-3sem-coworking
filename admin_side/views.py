@@ -11,6 +11,7 @@ from admin_side.serializers import TenantsrSerializer
 from client_side.serializers import PremisesSerializer
 
 
+
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
 def tenant_list(request):

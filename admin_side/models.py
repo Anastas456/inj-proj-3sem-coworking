@@ -9,7 +9,7 @@ STATUS_DEALS_CHOICES = [
 class Tenants(models.Model):
     tenant_name=models.CharField(max_length=255, default='ФИО или название компании')
     tenant_type = models.CharField(max_length=255)             
-    phone = models.CharField(max_length=15)                  
+    phone = models.CharField(max_length=255)                  
     email = models.CharField(max_length=255)   
 
     def __str__(self):
