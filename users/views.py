@@ -31,6 +31,7 @@ def authenticate_user(request):
                 user_details['username'] = user.username
                 user_details['first_name'] = user.first_name
                 user_details['last_name'] = user.last_name
+                user_details['role'] = user.role
                 user_details['token'] = token
 
                 return Response(user_details, status=status.HTTP_200_OK)

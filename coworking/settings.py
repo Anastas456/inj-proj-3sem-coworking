@@ -171,14 +171,14 @@ JWT_AUTH = {
     'JWT_VERIFY_EXPIRATION': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(seconds=3000),
     'JWT_AUTH_HEADER_PREFIX': 'JWT',
-    # 'JWT_ENCODE_HANDLER':
-    #     'rest_framework_jwt.utils.jwt_encode_handler',
+    'JWT_ENCODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_encode_handler',
 
-    # 'JWT_DECODE_HANDLER':
-    #     'rest_framework_jwt.utils.jwt_decode_handler',
+    'JWT_DECODE_HANDLER':
+        'rest_framework_jwt.utils.jwt_decode_handler',
 
-    # 'JWT_PAYLOAD_HANDLER':
-    #     'rest_framework_jwt.utils.jwt_payload_handler',
+    'JWT_PAYLOAD_HANDLER':
+        'rest_framework_jwt.utils.jwt_payload_handler',
     
     # 'JWT_ALLOW_REFRESH': True,
 }

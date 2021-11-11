@@ -20,12 +20,14 @@ class UserManager(BaseUserManager):
         extra_fields.setdefault('is_staff', False)
         extra_fields.setdefault('is_superuser', False)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('role', 'client')
         return self._create_user(email, username, first_name, last_name, password, **extra_fields)
  
     def create_superuser(self, email, username, first_name, last_name, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
         extra_fields.setdefault('is_active', True)
+        extra_fields.setdefault('role', 'admin')
  
         return self._create_user(email, username, first_name, last_name, password=password, **extra_fields)
 
@@ -62,12 +64,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
+    role = models.CharField(max_length=50, default='client')
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = [ 'username', 'first_name', 'last_name']
+    REQUIRED_FIELDS = ['username', 'first_name', 'last_name', 'role']
 
     objects = UserManager()
 
@@ -85,8 +88,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     # def get_full_name(self):
     #     return self.first_name + self.last_name
 
-    def get_username(self):
-        return self.username
+    # def get_username(self):
+    #     return self.username
 
     def _generate_jwt_token(self):
     

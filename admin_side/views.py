@@ -3,12 +3,10 @@ from rest_framework.decorators import api_view, permission_classes
 from django.http.response import JsonResponse
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 
 from admin_side.models import Tenants
-from client_side.models import Premises
 from admin_side.serializers import TenantsrSerializer
-from client_side.serializers import PremisesSerializer
 
 
 
@@ -51,19 +49,11 @@ def tenant_detail(request, pk):
         return JsonResponse(tenants_serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
     elif request.method == 'DELETE': 
-        tenant.delete() 
-        return JsonResponse({'message': 'Tutorial was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        try:
+            tenant.delete() 
+        except Exception as e:
+            # pass
+            print(e)
+        return JsonResponse({'message': 'Tenant was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
 
-
-@api_view(['GET'])
-@permission_classes([AllowAny])
-def premise_bytype_list(request):
-    premises = Premises.objects.all()
-
-    if request.method == 'GET': 
-        premise_type = request.GET.get('premise_type', None)
-        filtered_premises = premises.filter(premise_type__exact=premise_type)
-
-        premise_serializer = PremisesSerializer(filtered_premises, many=True)
-        return JsonResponse(premise_serializer.data, safe=False)
 
